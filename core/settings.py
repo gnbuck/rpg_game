@@ -1,0 +1,1 @@
+CLASSES = ["Human", "War", "Mage"]
