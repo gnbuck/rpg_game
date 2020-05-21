@@ -26,9 +26,10 @@ class Human(Players):
 
     def do_damage(self, damage=None):
         print(f"{self.name} prepare un coup a {damage}")
-        return self.strengh
+        return damage
 
     def take_damage(self, input_damage):
+        global game_finished
         evade = randint(0, 100)
         if evade <= self.defense:
             print(f"{self.name} a esquive le coup")
@@ -36,8 +37,10 @@ class Human(Players):
         self.hp -= input_damage
         if self.hp <= 0:
             print(f"{self.name} est DCD, il n'etait pas si fort que ca...")
-            return "ENDGAME"
+            game_finished = True
+            return game_finished
         print(f"{self.name} takes {input_damage} damages and now have {self.hp} HP.")
+        return
 
 
 class War(Human):

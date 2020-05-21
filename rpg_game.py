@@ -27,28 +27,25 @@ def main():
 
     _round = who_starts(p1, p2)
     _round_number = 0
-    game_active = True
+    game_finished = None
 
-    while game_active is True:
+    while game_finished is not True:
         print("____NEW_ROUND____\n")
         _round_number += 1
-        for i in range(2):
-            active_player = _round[0]
-            passive_player = _round[1]
+        for _ in range(2):
+            active_player = _round.pop(0)
+            passive_player = _round[0]
             print(f"{active_player.name}'s turn")
 
             active_player_do = active_player.do_damage()
-            try:
-                end_game = passive_player.take_damage(active_player_do)
-                break
-            except ValueError:
-                passive_player.take_damage(active_player_do)
-            
-            player_ending = _round.pop(0)
-            _round.append(player_ending)
+            game_finished = passive_player.take_damage(active_player_do)
+            if game_finished is True:
+                break            
+            _round.append(active_player)
 
         print(f"Round {_round_number} is ending...\n")
-        if end_game:
+        if game_finished is True:
+            print(f"Game is ending...\n")
             break
 
 
